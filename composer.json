@@ -1,0 +1,23 @@
+{
+    "name": "vectorface/api-client-php",
+    "description": "PHP Client for the API",
+    "homepage": "https://github.com/Vectorface/API-client-php/",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vectorface",
+            "email": "ckdarby+apiclientphp@vectorface.com",
+            "homepage": "https://github.com/Vectorface/"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Client": "src/"
+        }
+    }
+}
