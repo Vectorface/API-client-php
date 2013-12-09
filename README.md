@@ -10,8 +10,8 @@ API-client-php
 ```PHP
 <?php
 
-require_once(__DIR__.'/src/Client/API.php');
-use Client\API;
+require_once(__DIR__.'/src/VectorFace/Client/API.php');
+use VectorFace\Client\API;
 
 //Set configuration settings
 $config = array(

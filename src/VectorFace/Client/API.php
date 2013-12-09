@@ -1,6 +1,6 @@
 <?php
 
-namespace Client;
+namespace VectorFace\Client;
 
 class API
 {
