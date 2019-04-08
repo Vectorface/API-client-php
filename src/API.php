@@ -1,30 +1,58 @@
 <?php
 
-namespace VectorFace\Client;
+namespace Vectorface\Client;
+
+use InvalidArgumentException;
 
 class API
 {
-
-    private $username, $password, $url;
-    public $debug, $contents;
+    /**
+     * API username
+     * @var string
+     */
+    private $username;
 
     /**
-     * Initializes the API
+     * API password
+     * @var string
+     */
+    private $password;
+
+    /**
+     * Base URL to REST API
+     * @var string
+     */
+    private $url;
+
+    /**
+     * A dump of debug information
+     * @var mixed
+     */
+    public $debug;
+
+    /**
+     * Last request contents, for debugging
+     * @var string
+     */
+    public $contents;
+
+    /**
+     * Initializes the API client
      *
      * @param  array  $config  An array of configuration
      */
-    public function __construct($config = array()) {
-
-        if(empty($config['username'])) {
-            throw new \Exception('Missing API username');
+    public function __construct(array $config = [])
+    {
+        if (empty($config['username'])) {
+            throw new InvalidArgumentException('Missing API username');
         }
 
-        if(empty($config['password'])) {
-            throw new \Exception('Missing API password');
+        if (empty($config['password'])) {
+            throw new InvalidArgumentException('Missing API password');
         }
 
-        if(empty($config['url'])) {
-            throw new \Exception('Missing API url');
+        if (empty($config['url'])) {
+            throw new InvalidArgumentException('Missing API url');
         }
 
         $this->username = $config['username'];
@@ -39,21 +67,20 @@ class API
      * @param  array  $args  Array of options for the query query
      * @return  array  Finalized Url
      */
-    public function request($resource, $args=array())
+    public function request($resource, $args = [])
     {
-
         $url = $this->buildUrl($resource, $args);
         $curl = curl_init($url);
 
-        $options = array(
+        curl_setopt_array($curl, [
             CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CONNECTTIMEOUT => 10,
             CURLOPT_TIMEOUT        => 10,
             CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_USERPWD        => $this->username.':'.$this->password
-        );
-        curl_setopt_array($curl, $options);
+            CURLOPT_USERPWD        => $this->username . ':' . $this->password
+        ]);
+
         $this->contents = curl_exec($curl);
         $this->setDebug($curl);
 
@@ -71,10 +98,7 @@ class API
     {
         $query = http_build_query($args);
 
-        $url = $this->url;
-        $url .= $resource.'?'.$query;
-
-        return $url;
+        return $this->url . $resource . '?' . $query;
     }
 
     /**
@@ -90,6 +114,5 @@ class API
             'info' => curl_getinfo($curl),
             'raw' => $this->contents,
         ];
-
     }
 }

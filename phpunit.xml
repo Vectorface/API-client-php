@@ -1,0 +1,18 @@
+<phpunit
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.8/phpunit.xsd"
+         verbose="false">
+  <filter>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+    <directory suffix=".php">src/</directory>
+  </whitelist>
+</filter>
+  <php>
+    <env name="API_TEST_USERNAME" value="" />
+    <env name="API_TEST_PASSWORD" value="" />
+    <env name="API_TEST_RESOURCE" value="" />
+    <env name="API_TEST_URL" value="" />
+    <env name="API_TEST_EXPECT" value="" />
+  </php>
+</phpunit>
+

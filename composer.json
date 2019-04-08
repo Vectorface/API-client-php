@@ -12,12 +12,16 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": "^7.0",
         "ext-curl": "*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    },
     "autoload": {
-        "psr-0": {
-            "VectorFace\\Client\\": "src/"
+        "psr-4": {
+            "Vectorface\\Client\\": "src/",
+            "Vectorface\\Tests\\Client\\": "tests/"
         }
     }
 }

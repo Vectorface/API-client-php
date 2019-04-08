@@ -1,48 +1,33 @@
 API-client-php
 ==============
 
+A very simple/naive JSON/REST API client on top of cURL.
+
 ## Prerequisites
-* Configure the $config username, password and url
-* Must be running PHP >= 5.4
+* Must have username, password and url for the REST API
+* Must be running PHP >= 7.0
 
 ## Example
 
 ```PHP
 <?php
 
-require_once(__DIR__.'/src/VectorFace/Client/API.php');
+require_once './vendor/autoload.php';
+
 use VectorFace\Client\API;
 
-//Set configuration settings
-$config = array(
-    'username' => '',
-    'password' => '',
-    'url' => ''
-);
+/* Initialize the API client */
+$api = new API([
+    'username' => 'example',
+    'password' => '3x4mpl3',
+    'url' => 'http://domain.tld/'
+]);
 
-//Set filters & fields for /users/
-$args = array(
+/* Request users with filters and fields parameters set */
+$response = $api->request('/users', [
     'filters' => 'fname:Jon',
     'fields' => 'user_id,fname,lname'
-);
+]);
 
-try {
-
-    //Initalizes API with config options, defaults to v1 of the API
-    $api = new API($config);
-
-    //Makes request with basic auth in headers
-    $results = $api->request('/users', $args);
-
-    //Output json_decoded contents
-    var_dump($results);
-
-    //Output various debug information
-    // var_dump($api->debug);
-
-
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
-
+// $response should contain a decoded JSON response.
 ```
