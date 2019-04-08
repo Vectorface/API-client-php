@@ -20,14 +20,20 @@ use VectorFace\Client\API;
 $api = new API([
     'username' => 'example',
     'password' => '3x4mpl3',
-    'url' => 'http://domain.tld/'
+    'url' => 'http://domain.tld'
 ]);
 
-/* Request users with filters and fields parameters set */
+/*
+ * This will:
+ *  - Make a request to
+ *    http://domain.tld/users?filters=fname:Jon&fields=user_id,fname,lname
+ *  - JSON-decode the response
+ *  - return the result
+ */
 $response = $api->request('/users', [
     'filters' => 'fname:Jon',
     'fields' => 'user_id,fname,lname'
 ]);
 
-// $response should contain a decoded JSON response.
+// $response should contain a decoded JSON response from the API
 ```
